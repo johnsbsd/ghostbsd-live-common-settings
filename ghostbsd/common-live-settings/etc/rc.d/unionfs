@@ -21,16 +21,20 @@ unionfs_start() {
     newfs /dev/${device} > /dev/null 2>&1
     mount /dev/${device} /dist/union
 
-    tar -zxf /dist/mfs.tgz -C /dist/union
-    tar -zxf /dist/etc.tgz -C /dist/union
     while read uniondir; do
-        mount_nullfs /dist/union/${uniondir} /${uniondir}
+        if [ ! -d /dist/union/${uniondir} ]; then
+            mkdir -p /dist/union/${uniondir}
+            if [ "${uniondir}" = "tmp" ]; then
+                chmod 1777 /dist/union/${uniondir}
+            fi
+        fi
+        mount_unionfs -o noatime -o copymode=transparent /dist/union/${uniondir} /${uniondir}
     done < /dist/uniondirs
-    #makes rw /etc
-    mount_nullfs /dist/union/etc /etc
-    # makes rw /usr
-    mkdir -p /dist/union/usr
-    mount_unionfs -o noatime -o copymode=transparent /dist/union/usr /usr
+    if [ -d /home/ghostbsd ]; then
+        chgrp -R 1000 /dist/union/home/ghostbsd
+        chown -R ghostbsd /dist/union/home/ghostbsd
+        chmod 755 /dist/union/home/ghostbsd
+    fi
 }
 
 load_rc_config $name
