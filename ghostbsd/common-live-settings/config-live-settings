@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # .gtk_bookmarks
 printf "file:///home/ghostbsd/Documents Documents
 file:///home/ghostbsd/Downloads Downloads
