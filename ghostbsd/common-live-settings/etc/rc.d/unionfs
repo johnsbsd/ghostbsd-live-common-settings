@@ -30,11 +30,11 @@ unionfs_start() {
         fi
         mount_unionfs -o noatime -o copymode=transparent /dist/union/${uniondir} /${uniondir}
     done < /dist/uniondirs
-    #if [ -d /home/ghostbsd ]; then
-        #chgrp -R 1000 /dist/union/home/ghostbsd
-        #chown -R ghostbsd /dist/union/home/ghostbsd
-    #    chmod 755 /dist/union/home/ghostbsd
-    #fi
+    if [ -d /home/ghostbsd ]; then
+        chgrp -R ghostbsd /dist/union/home/ghostbsd
+        chown -R ghostbsd /dist/union/home/ghostbsd
+        chmod 755 /dist/union/home/ghostbsd
+    fi
 }
 
 load_rc_config $name
