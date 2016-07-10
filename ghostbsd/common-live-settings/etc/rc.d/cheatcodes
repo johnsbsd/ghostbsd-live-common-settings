@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# $GhostBSD$
+# $Id: uzip,v 1.4 Saturday, June 20 2015 12:18 Angelescu Ovidiu Exp $
+#
+
+# PROVIDE: gbsdcheats
+# BEFORE: disks
+# KEYWORD: nojail
+
+. /etc/rc.subr
+
+name="cheatcodes"
+start_cmd="cheatcodes_start"
+stop_cmd="cheatcodes_stop"
+
+cheatcodes_start() {
+echo "cheatcodes start"
+}
+
+cheatcodes_stop() {
+  echo "cheatcodes stop"
+}
+
+load_rc_config $name
+run_rc_command "$1"
