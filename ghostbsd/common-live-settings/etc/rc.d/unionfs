@@ -23,14 +23,12 @@ unionfs_start() {
 
     while read uniondir; do
         if [ ! -d /dist/union/${uniondir} ]; then
-            if [ "${uniondor}" = "home" ]; then
-                mtree -PUer -q -p /dist/union/home < /dist/home.dist > /dev/null 2>&1
-            else
-                mkdir -p /dist/union/${uniondir}
-            fi
-            if [ "${uniondir}" = "tmp" ]; then
-                chmod 1777 /dist/union/${uniondir}
-            fi
+            mkdir -p /dist/union/${uniondir}
+        fi
+        if [ "${uniondir}" = "tmp" ]; then
+            chmod 1777 /dist/union/${uniondir}
+            mkdir -p /dist/union/var/${uniondir}
+            chmod 1777 /dist/union/var/${uniondir}
         fi
         mount_unionfs -o noatime -o copymode=transparent /dist/union/${uniondir} /${uniondir}
     done < /dist/uniondirs
