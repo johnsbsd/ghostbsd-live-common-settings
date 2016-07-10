@@ -21,15 +21,20 @@ unionfs_start() {
     newfs /dev/${device} > /dev/null 2>&1
     mount /dev/${device} /dist/union
 
+    # make dirs with theirs permissions under /dist/union
+    mtree -PUer -q -p /dist/union < /etc/mtree/BSD.root.dist > /dev/null 2>&1
+    # make dirs with theirs permissions for var and usr
+    for dirs in usr var ; do
+        mtree -PUer -q -p /dist/union/${dirs} < /etc/mtree/BSD.${dirs}.dist > /dev/null 2>&1
+    done
+    # make dirs for with theirs permissions under home
+    mkdir -p /usr/home
+    mtree -PUer -q -p /dist/union/usr/home < /dist/home.dist > /dev/null 2>&1
+    # make compat dir under /dist/union
+    mkdir -p /dist/union/compat
+
+    # mount uniondirs under /dist/union
     while read uniondir; do
-        if [ ! -d /dist/union/${uniondir} ]; then
-            mkdir -p /dist/union/${uniondir}
-        fi
-        if [ "${uniondir}" = "tmp" ]; then
-            chmod 1777 /dist/union/${uniondir}
-            mkdir -p /dist/union/var/${uniondir}
-            chmod 1777 /dist/union/var/${uniondir}
-        fi
         mount_unionfs -o noatime -o copymode=transparent /dist/union/${uniondir} /${uniondir}
     done < /dist/uniondirs
 }
