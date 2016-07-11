@@ -2,6 +2,7 @@
 
 user_dirs()
 {
+mkdir -p /home/ghostbsd/Desktop
 echo "Please add xdg-user-dirs in pkglist"
 }
 
