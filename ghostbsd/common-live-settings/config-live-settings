@@ -2,12 +2,7 @@
 
 user_dirs()
 {
-mkdir -p /home/ghostbsd/Documents
-mkdir -p /home/ghostbsd/Downloads
-mkdir -p /home/ghostbsd/Movies 
-mkdir -p /home/ghostbsd/Music
-mkdir -p /home/ghostbsd/Pictures
-mkdir -p /home/ghostbsd/Desktop
+echo "Please add xdg-user-dirs in pkglist"
 }
 
 desktop_icons()
