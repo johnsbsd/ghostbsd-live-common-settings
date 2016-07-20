@@ -16,14 +16,15 @@ stop_cmd="cheatcodes_stop"
 
 cheatcodes_start() {
 echo "cheatcodes start"
-if [ "$(kenv boot_single)"  = "YES" ] ; then
+kenv boot_single > /dev/null 2>&1
+if [ $? -eq 0 ] ; then
    echo "Starting emergency shell."
-   echo "Type exit to continue boot"
-PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
-HOME=/root
-TERM=${TERM:-xterm}
-export TERM
-/bin/sh
+   echo "Type exit to resume boot"
+    PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+    HOME=/root
+    TERM=${TERM:-xterm}
+    export TERM
+    /bin/sh
 fi
 }
 
