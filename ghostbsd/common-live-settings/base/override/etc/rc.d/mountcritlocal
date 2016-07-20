@@ -22,6 +22,9 @@ mountcritlocal_start()
 	if [ -f /etc/rc.d/unionfs ] ; then
 	rm /etc/rc.d/unionfs 
 	fi
+	if [ -f /etc/rc.d/cheatcodes ] ; then
+	rm /etc/rc.d/cheatcodes 
+	fi
 	# Set up the list of network filesystem types for which mounting
 	# should be delayed until after network initialization.
 	case ${extra_netfs_types} in
