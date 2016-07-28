@@ -5,7 +5,7 @@
 #
 
 # PROVIDE: unionfs
-# REQUIRE: disks
+# REQUIRE: uzip
 # BEFORE:  hostid
 # KEYWORD: nojail
 

@@ -16,15 +16,6 @@ stop_cmd="cheatcodes_stop"
 
 cheatcodes_start() {
 echo "cheatcodes start"
-# Check if we are in virtualbox to enable vbox-guest-additions in rc.conf
-pciconf -lv | grep -q "VirtualBox Graphics"
-if  [ $? -eq 0 ] ; then
-    sed -i '' -e 's/vboxguest_enable="NO"/vboxguest_enable="YES"/g' \
-               -e 's/vboxservice_enable="NO"/vboxservice_enable="YES"/g' \
-                /etc/rc.conf
-/usr/local/etc/rc.d/vboxguest start
-/usr/local/etc/rc.d/vboxservice start
-fi
 # Single user boot stuff
 kenv boot_single > /dev/null 2>&1
 if [ $? -eq 0 ] ; then
