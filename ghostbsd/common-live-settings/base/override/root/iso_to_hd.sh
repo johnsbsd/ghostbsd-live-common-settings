@@ -17,7 +17,8 @@ pkg delete -y ghostbsd-live-common-settings
 clean_root_and_auto_login()
 {
 sed -i "" -e 's/root/Pc/g' /etc/ttys
-rm -rf /root/
+rm -rf /root/cardDetect /root/functions.sh /root/sysconfig.sh /root/sysutil.sh /root/sysutil.sh /root/.login
+echo 'startxfce4'  > /root/.xinitrc
 }
 
 set_sudoers()
