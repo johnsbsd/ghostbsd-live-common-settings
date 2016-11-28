@@ -18,7 +18,7 @@ clean_root_and_auto_login()
 {
 sed -i "" -e 's/root/Pc/g' /etc/ttys
 rm -rf /root/cardDetect /root/functions.sh /root/sysconfig.sh /root/sysutil.sh /root/sysutil.sh /root/.login
-echo 'startxfce4'  > /root/.xinitrc
+echo 'exec $1'  > /root/.xinitrc
 }
 
 set_sudoers()
@@ -143,4 +143,4 @@ revert_kdm
 revert_gdm
 fix_perms
 rem_virtualbox
-
+clean_root_and_auto_login
