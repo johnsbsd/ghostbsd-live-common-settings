@@ -17,7 +17,7 @@ pkg delete -y ghostbsd-live-common-settings
 clean_root_and_auto_login()
 {
 sed -i "" -e 's/root/Pc/g' /etc/ttys
-rm -rf /root/cardDetect /root/functions.sh /root/sysconfig.sh /root/sysutil.sh /root/sysutil.sh /root/.login
+rm -rf /root/cardDetect /root/functions.sh /root/sysconfig.sh /root/sysutil.sh /root/sysutil.sh /root/.login /root/Desktop/gbi.desktop
 echo 'exec $1'  > /root/.xinitrc
 }
 
