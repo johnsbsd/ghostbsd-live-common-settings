@@ -45,6 +45,12 @@ if [ -f /usr/local/etc/slim.conf ] ; then
   else
     echo 'slim_enable="YES"' >> /etc/rc.conf
   fi
+  for home in `ls /usr/home`
+  do
+    echo 'exec $1' > /usr/home/$home/.xinitrc
+  done
+
+  cd -
 fi
 }
 
