@@ -8,4 +8,5 @@
 # Uncomment to display a random cookie each login:
 # [ -x /usr/games/fortune ] && /usr/games/fortune -s
 
+netcardmgr
 /root/sysconfig.sh

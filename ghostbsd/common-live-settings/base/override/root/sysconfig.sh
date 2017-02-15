@@ -6,13 +6,11 @@ while
 i="1"
 do
 
-dialog --title "GhostBSD Configuration Menu" --menu "Please select from the following options:" 20 55 15 startx "Start Desktop" xorg "Start Desktop (Auto Video Configuration) " vesa "Start Desktop (VESA)" scfb "Start Desktop (SCFB)" intel "Start Desktop (Legacy Intel)" amd "Start Desktop (Radeon)" utility "System Utilities" reboot "Reboot the system" 2>/tmp/answer
+dialog --title "GhostBSD Configuration Menu" --menu "Please select from the following options:" 20 55 15 xorg "Start Desktop (Auto Video Configuration) " vesa "Start Desktop (VESA)" scfb "Start Desktop (SCFB)" intel "Start Desktop (Legacy Intel)" amd "Start Desktop (Radeon)" shell "Drop to emergency shell" reboot "Reboot the system" 2>/tmp/answer
 
 ANS="`cat /tmp/answer`"
 
 case $ANS in
-    startx) echo "Starting Desktop Please wait.."
-      startx ;;
     xorg) echo "Starting Desktop (AutoDetect).. Please wait.."
       start_xorg ;;
     vesa) echo "Starting Desktop (VESA).. Please wait.."
@@ -27,8 +25,11 @@ case $ANS in
     amd) echo "Starting Desktop (Radeon).. Please wait.."
       kldload radeonkms
       startx 2>/tmp/Xerrors ;;
-    utility) /root/sysutil.sh
-      clear ;;
+    shell) clear ; echo "# GhostBSD Emergency Shell
+#
+# Please type 'exit' to return to the menu
+#############################################################"
+      /bin/csh ;;
     reboot)  reboot -q ;;
     *) ;;
 esac
