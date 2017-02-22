@@ -36,17 +36,20 @@ acpi_disable()
 revert_slim()
 {
   # remove ghostbsd user from slim.conf and autologin
-if [ -f /usr/local/etc/slim.conf ] ; then
-  if grep -q '#slim' /etc/rc.conf; then
-    sed -i "" -e 's/#slim_enable="YES"/slim_enable="YES"/g' /etc/rc.conf
-  else
-    echo 'slim_enable="YES"' >> /etc/rc.conf
+  if [ -f /usr/local/etc/slim.conf ] ; then
+    if grep -q '#slim' /etc/rc.conf; then
+      sed -i "" -e 's/#slim_enable="YES"/slim_enable="YES"/g' /etc/rc.conf
+    else
+      echo 'slim_enable="YES"' >> /etc/rc.conf
+    fi
+    for home in `ls /usr/home`
+    do
+      echo 'exec $1' > /usr/home/$home/.xinitrc
+    done
+    sed -i '' -e "s/auto_login          yes/#auto_login          no/g"\
+    -e  "s/default_user        root/#default_user        none/g" \
+    /usr/local/etc/slim.conf
   fi
-  for home in `ls /usr/home`
-  do
-    echo 'exec $1' > /usr/home/$home/.xinitrc
-  done
-fi
 }
 
 revert_kdm()
